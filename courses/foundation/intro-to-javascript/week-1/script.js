@@ -42,8 +42,8 @@ else{
 const actualHousePricePeter = 2500000;
 const actualHousePriceJulia = 1000000;
 
-const estimatedHousePricePeter = 8 * 10 * 10 * 2.5 * 1000 + 100 * 300;
-const estimatedHousePriceJulia = 5 * 11 * 8 * 2.5 * 1000 + 70 * 300;
+const estimatedHousePricePeter = (8 * 10 * 10) * 2.5 * 1000 + 100 * 300;
+const estimatedHousePriceJulia = (5 * 11 * 8) * 2.5 * 1000 + 70 * 300;
 
 console.log("Assignment #3");
 
@@ -62,8 +62,9 @@ console.log(
 const firstWords = ["Easy", "Awesome", "Cool", "Dynamic", "Flexy", "Zen", "Sync", "Big", "Smart","Tele"];
 const secondWords = ["Flow", "Data", "Labs", "Grid", "Corporation", "Byte", "Sphere", "Send", "Corp", "Deck"];
 
-const randomNum = Math.floor(Math.random() * 10);
-const startupName = firstWords[randomNum]+" "+secondWords[randomNum];
+const randomNum1 = Math.floor(Math.random() * 10);
+const randomNum2 = Math.floor(Math.random() * 10);
+const startupName = firstWords[randomNum1]+" "+secondWords[randomNum2];
 
 console.log("Assignment #4");
 
