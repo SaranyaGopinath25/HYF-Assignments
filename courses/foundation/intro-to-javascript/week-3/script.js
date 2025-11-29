@@ -16,20 +16,30 @@ const names = [
   "Katrine",
   "Tala",
 ];
+console.log(names);
 const nameToRemove = "Ahmad";
 
 // Write some code here
 const indexOfTheElement = names.indexOf("Ahmad");
 console.log(indexOfTheElement);
 
+// console.log(names.splice(indexOfTheElement,1));
+
+if(indexOfTheElement >= 0){
 const slicedArr1 = names.slice(0,indexOfTheElement);
 const slicedArr2 = names.slice(indexOfTheElement + 1, names.length);
 const joinedArr = slicedArr1.concat(slicedArr2);
+console.log(joinedArr); // ['Peter', 'Yana', 'kristina', 'Rasmus', 'Samuel', 'Katrine', 'Tala']
+}
+else{
+  console.log("Name not found in the array");
+}
+
+
 
 
 // Code done
 
-console.log(joinedArr); // ['Peter', 'Yana', 'kristina', 'Rasmus', 'Samuel', 'Katrine', 'Tala']
 
 console.log("***************************************************************************************");
 
@@ -50,8 +60,8 @@ const travelTime = calculateTravelTime(travelInformation);
 console.log(travelTime); // 8 hours and 38 minutes
 
 function calculateTravelTime(travelInformation){
-    let time = travelInformation.speed/60 * travelInformation.destinationDistance;
-    return Math.round(time/60) +" hours and "+Math.round(time%60)+ " minutes";
+    const totalTime = travelInformation.speed/60 * travelInformation.destinationDistance;
+    return Math.round(totalTime/60) +" hours and "+Math.round(totalTime%60)+ " minutes";
 }
 
 console.log("***************************************************************************************");
@@ -88,9 +98,11 @@ const seriesDurations = [
 
 function logOutSeriesText() {
   // write code here
+  
+  let avgLifespanInMins = 80 * 365 * 24 * 60;
+  
   for(let series of seriesDurations){
 
-      let avgLifespanInMins = 80 * 365 * 24 * 60;
       let seriesDurationInMins = (series.days * 24 * 60) + (series.hours * 60) + series.minutes;
       //round of the decimal to 3 places using Math.round
       let percentOfTimeTakenInLife = Math.round(((seriesDurationInMins/avgLifespanInMins) * 100) * 1000) / 1000;
@@ -115,11 +127,14 @@ console.log("Assignment #4");
 let notes = [];
 
 function saveNote (content, id) {
-    let note = {};
-    note.id = id;
-    note.content = content;
-    console.log(note);
-    notes.push(note);
+   
+  if(content.trim() !== " "){
+
+    notes.push({content, id});
+  }
+  console.log(notes);
+    
+
 
 }
 saveNote("Pick up groceries", 1);
@@ -131,19 +146,26 @@ console.log(notes); // [{content: 'Pick up groceries', id: 1}, {content: 'Do lau
 
 function getNote(id) {
   // your code here
-  return notes[id-1];
+  for(let note of notes){
+    if(note.id === id){
+      return note.content;
+    }
+  }
 }
 
 const firstNote = getNote(1);
-console.log(firstNote); // {content: 'Pick up groceries', id: 1}
+console.log("Get Note :::: "+firstNote); // {content: 'Pick up groceries', id: 1}
 
 //Delete A Note
 
 function deleteNote(id){
     for(let note of notes){
-        if(note.id === id){
+        if(id ?? (note.id === id)){
             let index = notes.indexOf(note);
-            notes.splice(index,1);      
+            notes.splice(index,1);  
+        }
+        else{
+            console.log("Note id not valid");
         }
     }
 
@@ -181,10 +203,10 @@ console.log("Assignment #5")
 
 let activities = [];
 
-let date = new Date().toLocaleDateString("en-GB");
-console.log("Today's Date is "+date);
 function addActivity(activity, duration){
-    console.log(activity);
+  console.log(activity);
+  let date = new Date().toLocaleDateString("en-GB");
+  console.log("Today's Date is "+date);
    let activityObj = {
         date: date,
         activity: activity,
@@ -263,15 +285,14 @@ console.log(`Number of activities for Today ${activitiesForTheDate}`);
 function mostTimeSpentActivity(){
     
     let mostTimeSpentActivity = "";
-    let previousActivityTime = 0;
+    let maxDuration = 0;
     for(let activity of activities){
         console.log(activity);
-        if(activity.duration > previousActivityTime){
+        if(activity.duration > maxDuration){
             console.log("TIME ::: "+activity.duration+" : "+activity.activity);
             mostTimeSpentActivity = activity.activity;
+            maxDuration = activity.duration;
         }
-        previousActivityTime = activity.duration;
-
     }
     return mostTimeSpentActivity;
 }
