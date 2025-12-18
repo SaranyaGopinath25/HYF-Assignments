@@ -33,11 +33,14 @@ Assignment #2
 console.log("Assignment #2");
 
 function getFullName2(firstName, lastName,useFormalName ){
+    let fullName = `${firstName} ${lastName}`;
 
     if(useFormalName){
 
-        return `Lord ${firstName} ${lastName}`
+        fullName = `Lord ${firstName} ${lastName}`
     }
+
+    return fullName;
 
 }
 
@@ -56,10 +59,8 @@ function getFullName3(firstName, lastName, gender, useFormalName = false){
         return gender === "male" ? 
         `Lord ${firstName} ${lastName}` : `Lady ${firstName} ${lastName}`
     }
-    else{
-
+    
         return `${firstName} ${lastName}`
-    }
 
 }
 
@@ -141,19 +142,29 @@ const class07Students = ["Stud1", "Stud2", "stud3", "stud4"];
 function addStudentToClass(studentName) {
   // Check student name for Queen
   // Check the array for length and check it includes the name already
-if(studentName !== "Queen"){
-    if(class07Students.length < 6 && studentName.length > 0){
-        (!class07Students.includes(studentName)) ? class07Students.push(studentName) : 
-        console.log(`${studentName} is already in the class`);
-    }
-    else{
-        console.log("Cannot add more students to class 07");
-    }
+
+if (!studentName){
+    return;
+} 
+
+if (class07Students.includes(studentName)) {
+    console.log(`${studentName} is already in the class`);
+    return;
 }
-else{
+
+if (studentName === "Queen") {
     class07Students.push(studentName);
-    console.log("Queen added even the class is full");
+    console.log("Queen added even though the class is full");
+    return;
 }
+
+if (class07Students.length >= 6) {
+    console.log("Cannot add more students to class 07");
+    return;
+}
+
+class07Students.push(studentName);
+
 }
 
 function getNumberOfStudents() {
