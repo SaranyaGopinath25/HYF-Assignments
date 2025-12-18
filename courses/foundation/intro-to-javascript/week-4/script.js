@@ -4,13 +4,20 @@ Voice assistant
 */
 
 let userName = "";
-let replyMsg = "";
 let todoList = [];
 function getReply(command) {
+  
+  if(typeof command !== "string"){
+    console.log("Invalid Command");
+    return;
+  }
 
-  let mathArr = ["+", "-", "*", "/", "%"];
+  const mathArr = ["+", "-", "*", "/", "%"];
   let commandAsArray = command.split(" ");
   console.log("##### " + commandAsArray);
+  if (!Array.isArray(commandAsArray)) {
+    return "Invalid command";
+}
   console.log(commandAsArray.indexOf("+"));
 
   let matchedMathOperation = [];
@@ -21,17 +28,18 @@ function getReply(command) {
 
   // Name logic
   if (command.toLowerCase().startsWith("my name is")) {
+    const nameIndex = commandAsArray.indexOf("is") + 1;
     console.log(commandAsArray);
-    userName = commandAsArray[3];
+    userName = commandAsArray[nameIndex];
     console.log(userName);
-    replyMsg = `Nice to meet you ${userName}!!`;
+    return `Nice to meet you ${userName}!!`;
   }
 
   if (command.toLowerCase().startsWith("what is my name")) {
     if (userName.length > 0) {
-      replyMsg = `Your name is ${userName}`;
+      return `Your name is ${userName}`;
     } else {
-      replyMsg = `I don't know your name yet`;
+      return `I don't know your name yet`;
     }
   }
 
@@ -42,7 +50,7 @@ function getReply(command) {
     let todo = commandAsArray.slice(1, count - 3);
     let todoItem = todo.join(" ");
     todoList.push(todoItem);
-    replyMsg = `"${todoItem}" added to your todo!`;
+    return `"${todoItem}" added to your todo!`;
   }
 
   // Remove todo logic
@@ -53,22 +61,22 @@ function getReply(command) {
     let slicedCommand = commandAsArray.slice(1, count - 3);
     let todoItem = slicedCommand.join(" ");
     todoList = todoList.filter((todo) => !todo.includes(todoItem));
-    replyMsg = `Removed ${todoItem} from your todo`;
+    return `Removed ${todoItem} from your todo`;
   }
 
 
   // List todo logic
   if (command.toLowerCase().startsWith("what is on my todo")) {
     let count = todoList.length;
-    replyMsg = `You have ${count} todos. ${todoList}`;
+    return `You have ${count} todos. ${todoList}`;
   }
 
 
   // Today's date logic
   if (command.toLowerCase().startsWith("what day is it today")) {
-    let dateArray = new Date().toDateString().split(" ");
+    const dateArray = new Date().toDateString().split(" ");
     console.log(dateArray);
-    replyMsg = `Today's date is ${dateArray[2]} of ${dateArray[1]} ${dateArray[3]}`;
+    return `Today's date is ${dateArray[2]} of ${dateArray[1]} ${dateArray[3]}`;
   }
 
 
@@ -78,12 +86,19 @@ function getReply(command) {
     console.log(
       "There is math operation to perform : " + matchedMathOperation.length
     );
-    let indexOfOperator = commandAsArray.indexOf(matchedMathOperation[0]);
+    const indexOfOperator = commandAsArray.indexOf(matchedMathOperation[0]);
     console.log(indexOfOperator);
-    let num1 = commandAsArray[indexOfOperator - 1];
-    let num2 = commandAsArray[indexOfOperator + 1];
+    if(indexOfOperator === -1 || indexOfOperator === 0 || indexOfOperator === commandAsArray.length -1){
+        return "Invalid Math Command";
+    }
+    const num1 = Number(commandAsArray[indexOfOperator - 1]);
+    const num2 = Number(commandAsArray[indexOfOperator + 1]);
+    if (Number.isNaN(num1) || Number.isNaN(num2)) {
+    return "Not a valid numbers";
+}
     console.log("NUM1 : " + num1);
     console.log("NUM2 : " + num2);
+
 
     let result;
     switch(matchedMathOperation[0]){
@@ -97,8 +112,10 @@ function getReply(command) {
         break;
         case "%" : result = num1 % num2;
         break;
+        default: result = "Invalid operator";
+
     } 
-    replyMsg = `The result is ${result}`;
+    return `The result is ${result}`;
   }
   console.log("TO DO List ::::: " + todoList);
 
@@ -106,55 +123,54 @@ function getReply(command) {
 
   // Timer logic
   if (command.toLowerCase().startsWith("set a timer for")) {
-    let minutes = commandAsArray[4];
+    const minutes = commandAsArray[4];
     const timerInMillisecs = minutes * 60 * 1000;
 
     console.log(timerInMillisecs);
     setTimeout(() => {
       console.log("Timer done!!!");
     }, timerInMillisecs);
-    replyMsg = `Timer set for ${minutes} minutes`;
+    return `Timer set for ${minutes} minutes`;
   }
 
 
   // Extra Command : How many letters are in my name ?
   if(command.toLowerCase().startsWith("how many letters are in my name ?")){
     if(userName.length > 0){
-        replyMsg = `Your name has ${userName.length} letters`;
+        return `Your name has ${userName.length} letters`;
     }
     else{
-        replyMsg = "I don't know your name yet!";
+        return "I don't know your name yet!";
     }
   }
+return "I don't understand the command.";
 
-
-  return replyMsg;
 }
 
 
 
 // Test cases
-let command1 = "My name is Saranya";
+const command1 = "My name is Saranya";
 const resp1 = getReply(command1);
-let command2 = "Add singing in my shower to my todo";
+const command2 = "Add singing in my shower to my todo";
 const resp2 = getReply(command2);
-let command3 = "Add fishing to my todo";
+const command3 = "Add fishing to my todo";
 const resp3 = getReply(command3);
-let command4 = "Add go to supermarket to my todo";
+const command4 = "Add go to supermarket to my todo";
 const resp4 = getReply(command4);
-let command5 = "What is my name";
+const command5 = "What is my name";
 const resp5 = getReply(command5);
-let command6 = "Remove fishing from my todo";
+const command6 = "Remove fishing from my todo";
 const resp6 = getReply(command6);
-let command7 = "What is on my todo ?";
+const command7 = "What is on my todo ?";
 const resp7 = getReply(command7);
-let command8 = "What day is it today?";
+const command8 = "What day is it today?";
 const resp8 = getReply(command8);
-let command9 = "what is 45 * 43 ?";
+const command9 = "what is 45 * 43 ?";
 const resp9 = getReply(command9);
-let command10 = "Set a timer for 1 minutes";
+const command10 = "Set a timer for 1 minutes";
 const resp10 = getReply(command10);
-let command11 = "How many letters are in my name ?";
+const command11 = "How many letters are in my name ?";
 const resp11 = getReply(command11);
 console.log(`Reply for the command ${command1} >>>>>> ${resp1}`);
 console.log(`Reply for the command ${command2} >>>>>> ${resp2}`);
@@ -183,6 +199,9 @@ The input string will only consist of lower case letters and/or spaces.
 console.log("Codewars Exercise #1");
 
 function getCount(str) {
+  if (typeof str !== "string") {
+        return 0; 
+    }
   let vowelsArr = ["a", "e", "i", "o", "u"];
   let stringArr = str.split("");
   let matchedVowels = stringArr.filter((item) => vowelsArr.includes(item));
@@ -213,6 +232,10 @@ Note: The function accepts an integer and returns an integer.
 console.log("Codewars Exercise #2");
 
 function squareDigits(num) {
+  if (typeof num !== "number" || Number.isNaN(num)) {
+        return null; 
+    }
+
   let numbersArr = num.toString().split("");
   let squaredNumArr = [];
 
@@ -247,6 +270,7 @@ const result = highAndLow("5 -9 2 4 7 1");
 console.log(result);
 
 function highAndLow(numbers) {
+  
   let numArr = numbers.split(" ").map(Number);
   let highestNum = numArr[0];
   let lowestNum = numArr[0];
