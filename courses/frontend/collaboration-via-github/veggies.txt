@@ -1,6 +1,8 @@
 
 Carrot
 Cabbage
-Potato
+Capsicum
 Tomato
 Onion
+Cucumber
+Peas
