@@ -1,8 +1,13 @@
 // Main JS for my-portfolio
 // Update copyright year
 document.addEventListener('DOMContentLoaded', function(){
-  const yearEl = document.getElementById('year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  function updateYear() {
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+  }
+
+  updateYear(); // Initial call to set the year
 
   // Nav toggle
   const toggle = document.querySelector('.nav-toggle');
