@@ -51,7 +51,8 @@ function showLoginScreen() {
 
 function init() {
   // Initialize with test users
-  store.users.push(new User("test1@gmail.com", "pass123"));
+  //   store.users.push(new User("test1@gmail.com", "pass123"));
+  store.users.push(new User("test", "123"));
   showLoginScreen();
 }
 
@@ -60,7 +61,7 @@ init();
 // Dashboard Screen
 
 function showDashboard() {
-  console.log("Login button clicked");
+  console.log("Dashboard view rendered");
   DOM.appContent.innerHTML = "";
   const dashboardView = new DashboardView();
   DOM.appContent.appendChild(dashboardView.render());
@@ -76,6 +77,10 @@ function showDashboard() {
   const listContainer = document.getElementById("screenshot-list");
   listContainer.innerHTML = "";
 
+  console.log(
+    "Screenshots of the current User :::: " + JSON.stringify(store.screenshots)
+  );
+
   const userScreenshots = store.screenshots.filter(
     (s) => s.userEmail === store.currentUser.email
   );
@@ -83,8 +88,11 @@ function showDashboard() {
   userScreenshots.forEach((s) => {
     const img = document.createElement("img");
     img.src = s.image;
-    img.style.width = "200px";
+    img.style.width = "250px";
     img.style.margin = "10px";
+    img.style.border = "2px solid #ccc";
+    img.style.cursor = "pointer";
+    img.addEventListener("click", () => viewScreenshot(s.image));
 
     listContainer.appendChild(img);
   });
@@ -105,7 +113,10 @@ async function showScreenshotPreview(url) {
   console.log("Save Button Element:", saveBtn);
   saveBtn.addEventListener("click", saveScreenshot);
 
-  // Implement screenshot capture logic here using ScreenshotService
+  const deleteBtn = document.getElementById("delete-btn");
+  deleteBtn.style.display = "none";
+
+  // Capture screenshot logic here using ScreenshotService
 
   const loadingBarContainer = document.getElementById("loading-bar-container");
   const loadingBar = document.getElementById("loading-bar");
@@ -114,6 +125,7 @@ async function showScreenshotPreview(url) {
   loadingBar.style.width = "30%";
 
   const imageURL = await ScreenshotService.captureScreenshot(url);
+  // const imageURL = "https://storage.linebot.site/screenshotyrep661776412758091.png"; //testing
   loadingBar.style.width = "60%";
   console.log("Screenshot captured:", imageURL);
   loadingBar.style.width = "100%";
@@ -131,7 +143,7 @@ async function showScreenshotPreview(url) {
 
 function saveScreenshot() {
   console.log("Save Screenshot button clicked");
-  // Implement save screenshot logic here
+  // Save screenshot logic
   console.log("Current user in save screenshot ::::: ", store.currentUser);
   const screenshot = new Screenshot(
     Date.now(),
@@ -146,6 +158,41 @@ function saveScreenshot() {
   alert("Screenshot saved!");
 
   showDashboard();
+}
+
+function deleteScreenshot(imageURL) {
+  console.log("Delete Screenshot button clicked for URL:", imageURL);
+  // Delete screenshot logic
+  store.screenshots = store.screenshots.filter(
+    (screenshot) => screenshot.image !== imageURL
+  );
+  console.log(
+    "Screenshot deleted from store. Remaining screenshots:",
+    store.screenshots
+  );
+  alert("Screenshot deleted!");
+  showDashboard();
+}
+
+function viewScreenshot(imageURL) {
+  console.log("View Screenshot button clicked for URL:", imageURL);
+  // Implement view screenshot logic
+  const screenshotView = new ScreenshotView();
+  DOM.appContent.innerHTML = "";
+  DOM.appContent.appendChild(screenshotView.render());
+
+  const previewImage = document.getElementById("preview-image");
+  previewImage.src = imageURL;
+
+  const backBtn = document.getElementById("back-btn");
+  backBtn.addEventListener("click", showDashboard);
+
+  const saveBtn = document.getElementById("save-btn");
+  saveBtn.style.display = "none";
+
+  const deleteBtn = document.getElementById("delete-btn");
+  deleteBtn.style.display = "block";
+  deleteBtn.addEventListener("click", () => deleteScreenshot(imageURL));
 }
 
 // Login Validation Logic

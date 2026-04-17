@@ -47,6 +47,14 @@ class ScreenshotView {
         saveBtn.disabled = true;
         buttonDivElement.appendChild(saveBtn);
 
+        const deleteButton = document.createElement('button');
+        deleteButton.classList.add('btn');
+        deleteButton.style.backgroundColor = 'red';
+        deleteButton.setAttribute('id','delete-btn');
+        deleteButton.textContent = "Delete Screenshot";
+        deleteButton.type = 'submit';
+        buttonDivElement.appendChild(deleteButton);
+
 
         previewDivElement.appendChild(buttonDivElement);
 
