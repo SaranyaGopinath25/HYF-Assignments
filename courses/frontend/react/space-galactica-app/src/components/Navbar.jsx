@@ -1,20 +1,22 @@
-import classNames from 'classnames';
 import { useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { Planet } from '../icons/Planet';
 import { Badge } from './Badge';
 import styles from './Navbar.module.css';
+import NavItem from "./NavItem.jsx"
 
 const navbarItems = [
   {
+    id: 1,
     title: 'ABOUT US',
     link: '/about_us',
   },
   {
+    id: 2,
     title: 'DESTINATION',
     link: '/destination',
   },
   {
+    id: 3,
     title: 'NASA COLLABORATION',
     link: '/nasa_collaboration',
   }
@@ -34,21 +36,10 @@ export const Navbar = () => {
         <ul className={styles.navbarList}>
           {/* 🧑🏽‍🚀 Task - Week 2 */}
           {/* Create a <NavItem> component, which accepts the following props: title, link, isActive.  */}
-          <li className={classNames(styles.navbarLinks, {
-            [styles.isLinkActive]: navbarItems[0].link === currentPath,
-          })}>
-            <Link to={navbarItems[0].link}><b>01</b> {navbarItems[0].title}</Link>
-          </li>
-          <li className={classNames(styles.navbarLinks, {
-            [styles.isLinkActive]: navbarItems[1].link === currentPath,
-          })}>
-            <Link to={navbarItems[1].link}><b>02</b> {navbarItems[1].title}</Link>
-          </li>
-          <li className={classNames(styles.navbarLinks, {
-            [styles.isLinkActive]: navbarItems[2].link === currentPath,
-          })}>
-            <Link to={navbarItems[2].link}><b>03</b> NASA COLLABORATION</Link>
-          </li>
+          
+          <NavItem navItems={navbarItems} currentPath={currentPath}/>
+          
+          
           {/* 🧑🏽‍🚀 Task - Week 3 */}
           {/* Replace repeating content by using .map() and the previously created NavItem component. */}
           <li className={styles.wishlistBadge} aria-label="Wishlist">
