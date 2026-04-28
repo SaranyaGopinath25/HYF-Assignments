@@ -43,3 +43,16 @@
 .footerList li {
   padding-block: var(--spacing-04);
 }
+
+.footerList a {
+  display: flex;
+  gap: 10px;             
+  text-decoration: none;
+}
+
+.socialMediaImg {
+  width: 15px;
+  height: 15px;
+  object-fit: contain;
+
+}
