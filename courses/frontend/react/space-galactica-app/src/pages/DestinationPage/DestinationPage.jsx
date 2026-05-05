@@ -1,5 +1,8 @@
 import { useState } from "react";
 import PlanetCard from "./PlanetCard";
+import { AddWishlistItem } from "./AddWishlistItem";
+import PlanetsWishlistItem from "./PlanetsWishlistItem";
+import styles from "./DestinationPage.module.css";
 
 // 🧑🏽‍🚀 Task - Week 2
 // Move this to its own file in this folder.
@@ -36,15 +39,7 @@ export const Destinations = () => {
     },
   ];
 
-  const [planetsWishlist, setPlanetsWishlist] = useState([
-    {
-      id: 2,
-      name: "Mars",
-      description:
-        "Mars, the Red Planet, is a barren yet fascinating world with vast deserts, towering volcanoes, and the deepest canyon in the solar system. As humanity’s next frontier, Mars invites us to dream of colonization and the possibilities of life beyond Earth.",
-      thumbnail: "/destination/image-mars.png",
-    },
-  ]);
+  const [planetsWishlist, setPlanetsWishlist] = useState([]);
 
   const isPlanetInWishlist = (planetName) => {
     // 🧑🏽‍🚀 Task - Week 2
@@ -96,13 +91,20 @@ export const Destinations = () => {
           {/* 🧑🏽‍🚀 Task - Week 3 */}
           {/* Use the AddWishlistItem component here. */}
 
-          {/* 🧑🏽‍🚀 Task - Week 3
+          <AddWishlistItem onAddWishlistItem={addPlanetToWishlist} />
+
+          {/* 🧑🏽‍🚀 Task - Week 3*/}
           <h3>Your current wishlist</h3>
           <div className={styles.wishlistList}>
-            ...
-            Use .map() to display the wishlist planets with the PlanetsWishlistItem component. 
-          </div> 
-          */}
+            {planetsWishlist.map((planet) => (
+              <PlanetsWishlistItem
+                key={planet.id}
+                name={planet.name}
+                thumbnail={planet.thumbnail}
+                onRemove={removePlanetFromWishlist}
+              />
+            ))}
+          </div>
         </section>
         <section className="card">
           <h2>Possible destinations</h2>
