@@ -3,22 +3,14 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
 
-const NavItem = ({navItems, currentPath}) => {
+const NavItem = (props) => {
+    const {navbarItem, currentPath } = props
     return(
-        <>
-        
-        {
-            navItems.map(navItem => (
-                
-                <li key={navItem.id} className={classNames(styles.navbarLinks, {
-                            [styles.isLinkActive]: navItem.link === currentPath,
+                <li className={classNames(styles.navbarLinks, {
+                            [styles.isLinkActive]: navbarItem.link === currentPath,
                           })}>
-                            <Link to={navItem.link}><b>01</b> {navItem.title}</Link>
+                            <Link to={navbarItem.link}><b>01</b> {navbarItem.title}</Link>
                           </li>
-            ))
-        }
-        
-        </>
     )
 }
 

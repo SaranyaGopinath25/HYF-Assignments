@@ -37,11 +37,17 @@ export const Navbar = () => {
           {/* 🧑🏽‍🚀 Task - Week 2 */}
           {/* Create a <NavItem> component, which accepts the following props: title, link, isActive.  */}
           
-          <NavItem navItems={navbarItems} currentPath={currentPath}/>
+          {/* <NavItem navItems={navbarItems} currentPath={currentPath}/> */}
           
           
           {/* 🧑🏽‍🚀 Task - Week 3 */}
           {/* Replace repeating content by using .map() and the previously created NavItem component. */}
+
+          {navbarItems.map(navItem => (
+            <NavItem key={navItem.id}  navbarItem = {navItem} currentPath={currentPath} />
+
+          ))}
+
           <li className={styles.wishlistBadge} aria-label="Wishlist">
           </li>
         </ul>
