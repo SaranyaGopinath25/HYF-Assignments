@@ -29,6 +29,9 @@ export const Footer = () => {
         <h3>Follow us</h3>
         <ul className={styles.footerList}>
           <li>
+            <a href="https://www.linkedin.com">LinkedIn</a>
+          </li>
+          <li>
             <a href="https://facebook.com">Facebook</a>
           </li>
           <li>
