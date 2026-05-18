@@ -6,17 +6,14 @@ import NavItem from "./NavItem.jsx"
 
 const navbarItems = [
   {
-    id: 1,
     title: 'ABOUT US',
     link: '/about_us',
   },
   {
-    id: 2,
     title: 'DESTINATION',
     link: '/destination',
   },
   {
-    id: 3,
     title: 'NASA COLLABORATION',
     link: '/nasa_collaboration',
   }

@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import styles from './Footer.module.css';
 import { Link } from "react-router-dom"; 
 import SocialMediaItem from "./SocialMediaItem";
+import NavItem from "./NavItem";
 
 export const Footer = () => {
   const { pathname } = useLocation();
@@ -40,6 +41,20 @@ export const Footer = () => {
     }
 
   ]
+  const navbarItems = [
+  {
+    title: 'ABOUT US',
+    link: '/about_us',
+  },
+  {
+    title: 'DESTINATION',
+    link: '/destination',
+  },
+  {
+    title: 'NASA COLLABORATION',
+    link: '/nasa_collaboration',
+  }
+];
 
   return (
     <footer className={pathname !== "/" ? styles.footer : styles.hidden}>
@@ -54,9 +69,11 @@ export const Footer = () => {
       <div className={styles.footerLinks}>
         <h3>Pages</h3>
         <ul className={styles.footerList}>
+          <NavItem navItems={navbarItems} />
+{/*           
           <li> <Link to="/about_us" >About Us </Link></li>
           <li><Link to="/destination">Destination</Link></li>
-          <li><Link to="/nasa_collaboration">Nasa Collaboration</Link></li>
+          <li><Link to="/nasa_collaboration">Nasa Collaboration</Link></li> */}
         </ul>
       </div>
 
@@ -66,7 +83,14 @@ export const Footer = () => {
       {/* Add a new list item for LINKEDIN */}
       <div className={styles.footerLinks}>
         <h3>Follow us</h3>
-         <SocialMediaItem socialMedias = {socialMedias} />
+        <ul className={styles.footerList}>
+          {socialMedias.map(socialMedia => (
+
+            <SocialMediaItem key={socialMedia.id} socialMedia = {socialMedia} />
+
+          ))}
+
+        </ul>
           {/* 🧑🏽‍🚀 Task - Week 2 */}
           {/* Create a <SocialMediaItem /> component and replace all of the list items! */}
           {/* SocialMediaItem should accept the following props: url, title, icon. */}

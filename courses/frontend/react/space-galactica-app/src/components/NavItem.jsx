@@ -10,10 +10,13 @@ const NavItem = ({navItems, currentPath}) => {
         {
             navItems.map(navItem => (
                 
-                <li key={navItem.id} className={classNames(styles.navbarLinks, {
+                <li key={navItem.link} 
+                    className={currentPath ? classNames(styles.navbarLinks, {
                             [styles.isLinkActive]: navItem.link === currentPath,
-                          })}>
-                            <Link to={navItem.link}><b>01</b> {navItem.title}</Link>
+                          })
+                          : ""
+                        }>
+                            <Link to={navItem.link}> {navItem.title}</Link>
                           </li>
             ))
         }
