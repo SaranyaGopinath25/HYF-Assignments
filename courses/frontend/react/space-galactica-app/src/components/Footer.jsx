@@ -69,7 +69,13 @@ export const Footer = () => {
       <div className={styles.footerLinks}>
         <h3>Pages</h3>
         <ul className={styles.footerList}>
-          <NavItem navItems={navbarItems} />
+          {
+            navbarItems.map(navbarItem => (
+              <NavItem key={navbarItem.link} navbarItem={navbarItem} />
+
+            ))
+
+          }
 {/*           
           <li> <Link to="/about_us" >About Us </Link></li>
           <li><Link to="/destination">Destination</Link></li>

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-import RoverPhoto from "./RoverPhoto";
-import { NASA_API_KEY } from "../../../config.js";
+import React, { useState, useEffect } from 'react';
+import RoverPhoto from './RoverPhoto';
+import NASA_API_KEY from "../../../config.js";
+
 
 // Read "/app/nasa_collaboration/README.md" for more info about the API_KEY
 // You need a proper API_KEY for the requests to work
@@ -19,9 +20,19 @@ export const NasaCollaboration = () => {
 
   useEffect(() => {
     const fetchRoverPhotos = async () => {
-      const roverPhotoResponse = await fetch(NASA_URLs.marsRoverPhoto).then(
-        (response) => response.json()
-      );
+
+      try{
+        const roverPhotoResponse = await fetch(NASA_URLs.marsRoverPhoto);
+        if (!roverPhotoResponse.ok) {
+          throw new Error("API failed");
+        }
+        const roverPhotoData = await roverPhotoResponse.json();
+        setRoverPhoto(roverPhotoData);
+      }catch(error){
+        console.error(error);
+      }
+
+      const roverPhotoResponse = await fetch(NASA_URLs.marsRoverPhoto).then(response => response.json());
       setRoverPhoto(roverPhotoResponse);
     };
 
@@ -44,7 +55,7 @@ export const NasaCollaboration = () => {
       } catch (error) {
         console.error(error);
       }
-    };
+    }
 
     fetchAstronomyPicOfTheDay();
   }, []);
@@ -91,10 +102,11 @@ export const NasaCollaboration = () => {
                     alt={photo.alt}
                   />
                 ))}
-            </>
-          ) : (
-            <p>Loading rover photos...</p>
-          )}
+              </>
+              ) : (
+                <p>Loading rover photos...</p>
+              )
+            }
         </section>
       </main>
     </div>
