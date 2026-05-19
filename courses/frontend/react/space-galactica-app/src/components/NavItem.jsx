@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 
 
-const NavItem = ({navItems, currentPath}) => {
+const NavItem = (props) => {
+    const {navbarItem, currentPath } = props
     return(
         <>
         
@@ -18,10 +19,6 @@ const NavItem = ({navItems, currentPath}) => {
                         }>
                             <Link to={navItem.link}> {navItem.title}</Link>
                           </li>
-            ))
-        }
-        
-        </>
     )
 }
 

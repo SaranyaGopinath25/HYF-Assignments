@@ -1,8 +1,10 @@
-import { useState } from "react";
 import PlanetCard from "./PlanetCard";
+import { AddWishlistItem } from "./AddWishlistItem";
+import PlanetsWishlistItem from "./PlanetsWishlistItem";
+import styles from "./DestinationPage.module.css";
+import { useWishlist } from "../../contexts/WishlistContext.jsx";
 
-// 🧑🏽‍🚀 Task - Week 2
-// Move this to its own file in this folder.
+
 
 export const Destinations = () => {
   const planets = [
@@ -36,44 +38,19 @@ export const Destinations = () => {
     },
   ];
 
-  const [planetsWishlist, setPlanetsWishlist] = useState([
-    {
-      id: 2,
-      name: "Mars",
-      description:
-        "Mars, the Red Planet, is a barren yet fascinating world with vast deserts, towering volcanoes, and the deepest canyon in the solar system. As humanity’s next frontier, Mars invites us to dream of colonization and the possibilities of life beyond Earth.",
-      thumbnail: "/destination/image-mars.png",
-    },
-  ]);
 
-  const isPlanetInWishlist = (planetName) => {
-    // 🧑🏽‍🚀 Task - Week 2
-    // This should be a simple function to check if a given planet is selected.
-    // You will need to work with the array of planets wishlist.
+  const { planetsWishlist, addPlanetToWishlist, removePlanetFromWishlist, isPlanetInWishlist } = useWishlist();
 
-    return planetsWishlist.some((planet) => planet.name === planetName);
-  };
 
   const togglePlanetSelection = (name, thumbnail) => {
-    // 🧑🏽‍🚀 Task - Week 2
-    // When a planet is selected or deselected (toggled), the state of the wishlist planets should be updated accordingly by
-    // calling the addPlanetToWishlist or removePlanetFromWishlist function. You will need a condition here.
+    
     const inWhishList = isPlanetInWishlist(name);
     inWhishList
       ? removePlanetFromWishlist(name)
       : addPlanetToWishlist(name, thumbnail);
   };
 
-  const addPlanetToWishlist = (name, thumbnail) => {
-    // 🧑🏽‍🚀 Task - Week 2
-    // Add the planet to the planets wishlist state.
-    setPlanetsWishlist((prev) => [...prev, { name, thumbnail }]);
-  };
-  const removePlanetFromWishlist = (name) => {
-    // 🧑🏽‍🚀 Task - Week 2
-    // Remove the planet from the planets wishlist state.
-    setPlanetsWishlist((prev) => prev.filter((planet) => planet.name !== name));
-  };
+  
 
   return (
     <div className="fullBGpicture">
@@ -92,30 +69,37 @@ export const Destinations = () => {
               : `No planets in your wishlist`}
           </p>
 
-          {/* 🧑🏽‍🚀 Task - Week 3 */}
-          {/* Use the AddWishlistItem component here. */}
+          <AddWishlistItem onAddWishlistItem={addPlanetToWishlist} />
 
-          {/* 🧑🏽‍🚀 Task - Week 3
+          {/* 🧑🏽‍🚀 Task - Week 3*/}
           <h3>Your current wishlist</h3>
           <div className={styles.wishlistList}>
-            ...
-            Use .map() to display the wishlist planets with the PlanetsWishlistItem component. 
-          </div> 
-          */}
+            {planetsWishlist.map((planet) => (
+              <PlanetsWishlistItem
+                key={planet.name}
+                name={planet.name}
+                thumbnail={planet.thumbnail}
+                onRemove={removePlanetFromWishlist}
+              />
+            ))}
+          </div>
         </section>
         <section className="card">
           <h2>Possible destinations</h2>
 
-          {/* 🧑🏽‍🚀 Task - Week 2 */}
-          {/* Add all 4 planets: Europa, Moon, Mars, Titan.  */}
-          {/* Use the README.md file for descriptions. */}
-          {/* Create a <PlanetCard /> component, which accepts the following props: name, description, thumbnail, isSelected, togglePlanetSelection */}
-
-          <PlanetCard
-            planets={planets}
-            isSelected={isPlanetInWishlist}
-            togglePlanetSelection={togglePlanetSelection}
-          />
+            {
+              planets.map((planet) => (
+                <PlanetCard
+                  key={planet.name}
+                  planet={planet.name}
+                  thumbnail={planet.thumbnail}
+                  description={planet.description}
+                  isSelected={isPlanetInWishlist}
+                  togglePlanetSelection={togglePlanetSelection}
+                />
+                
+              ))
+            }
         </section>
       </main>
     </div>

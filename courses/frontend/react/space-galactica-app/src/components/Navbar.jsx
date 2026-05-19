@@ -3,6 +3,7 @@ import { Planet } from '../icons/Planet';
 import { Badge } from './Badge';
 import styles from './Navbar.module.css';
 import NavItem from "./NavItem.jsx"
+import { useWishlist } from "../contexts/WishlistContext.jsx";
 
 const navbarItems = [
   {
@@ -21,6 +22,7 @@ const navbarItems = [
 
 export const Navbar = () => {
   const currentPath = useLocation().pathname;
+  const { wishlistCount } = useWishlist();
 
   return (
     <header className={styles.headerContainer}>
@@ -31,20 +33,18 @@ export const Navbar = () => {
       <nav className={styles.navbar}>
         <div className={styles.navbarBG} />
         <ul className={styles.navbarList}>
-          {/* 🧑🏽‍🚀 Task - Week 2 */}
-          {/* Create a <NavItem> component, which accepts the following props: title, link, isActive.  */}
           
-          <NavItem navItems={navbarItems} currentPath={currentPath}/>
-          
-          
-          {/* 🧑🏽‍🚀 Task - Week 3 */}
-          {/* Replace repeating content by using .map() and the previously created NavItem component. */}
+          {navbarItems.map(navItem => (
+            <NavItem key={navItem.id}  navbarItem = {navItem} currentPath={currentPath} />
+
+          ))}
+
           <li className={styles.wishlistBadge} aria-label="Wishlist">
           </li>
         </ul>
         {/* 🧑🏽‍🚀 Task - Week 4 - part 3 */}
         {/* Take the count of the planets wishlist from the context and display it in the Badge. */}
-        <Badge count={0}>
+        <Badge count={wishlistCount()}>
           <Planet color="white"  />
         </Badge>
       </nav>
