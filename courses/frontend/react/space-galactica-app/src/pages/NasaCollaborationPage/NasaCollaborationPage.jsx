@@ -9,7 +9,7 @@ const API_KEY = NASA_API_KEY;
 
 const NASA_URLs = {
   // astronomyPicOfTheDay: `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`,
- astronomyPicOfTheDay: `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}&date=2024-05-01`,
+  astronomyPicOfTheDay: `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}&date=2024-05-01`,
   // marsRoverPhoto: `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?earth_date=2015-6-3&api_key=${API_KEY}`,
   marsRoverPhoto: `https://images-api.nasa.gov/search?q=Mars rover&media_type=image`,
 };
@@ -38,7 +38,7 @@ export const NasaCollaboration = () => {
 
     fetchRoverPhotos();
 
-    // 🧑🏽‍🚀 Task - Week 3 
+    // 🧑🏽‍🚀 Task - Week 3
     // Fetch the extra data for NASA_URLs.astronomyPicOfTheDay and save it to the dailyImg state variable.
 
     const fetchAstronomyPicOfTheDay = async () => {
@@ -77,17 +77,17 @@ export const NasaCollaboration = () => {
           <h2>Rover Photos</h2>
           {/* 🧑🏽‍🚀 Task - Week 3 */}
           {/* Iterate over the roverPhoto?.photos array and display all the pictures. */}
-          {
-            roverPhoto?.collection?.items?.length ? (
-              <>
-                {/* 🧑🏽‍🚀 Task - Week 3 */}
-                {/* Create a react component for the <RoverPhoto />, which should accept the following props: */}
-                {/* 1. src: source of the img; */}
-                {/* 2. date: earth_date data coming from the API; */}
-                {/* 3. roverName: will be in the rover object. */}
-                
-                {/* If you don't know how the data looks like you can log it out to the console and investigate in the browser's devtools. */}
-                {roverPhoto.collection.items
+          {roverPhoto?.collection?.items?.length ? (
+            <>
+              {/* 🧑🏽‍🚀 Task - Week 3 */}
+              {/* Create a react component for the <RoverPhoto />, which should accept the following props: */}
+              {/* 1. src: source of the img; */}
+              {/* 2. date: earth_date data coming from the API; */}
+              {/* 3. roverName: will be in the rover object. */}
+
+              {/* If you don't know how the data looks like you can log it out to the console and investigate in the browser's devtools. */}
+
+              {roverPhoto.collection.items
                 .map((item) => ({
                   id: item.data.nasa_id,
                   imgUrl: item.links?.[1]?.href,
@@ -111,6 +111,6 @@ export const NasaCollaboration = () => {
       </main>
     </div>
   );
-}
+};
 
 export default NasaCollaboration;
