@@ -59,11 +59,15 @@ export const Destinations = () => {
         <section className="card">
           <h2>Wishlist</h2>
 
-          {planetsWishlist.length > 0 ? (
-            <p>You have {planetsWishlist.length} planets in your wishlist</p>
-          ) : (
-            <p>No planets in your wishlist :(</p>
-          )}
+          {/* 🧑🏽‍🚀 Task - Week 2 */}
+          {/* Display the number of wishlist planets, if there are any planets in the wishlist. */}
+          {/* Display the "no planets" message if the wishlist is empty. */}
+          {/* 🧑🏽‍🚀 Use a variable to display the number of wishlist planets:  */}
+          <p>
+            {planetsWishlist.length > 0
+              ? `You have ${planetsWishlist.length} planets in your wishlist`
+              : `No planets in your wishlist`}
+          </p>
 
           <AddWishlistItem onAddWishlistItem={addPlanetToWishlist} />
 

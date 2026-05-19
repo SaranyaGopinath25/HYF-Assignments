@@ -1,22 +1,30 @@
 
 import styles from './Footer.module.css';
 
-const SocialMediaItem = ({socialMedias}) => {
+const SocialMediaItem = ({socialMedia}) => {
 
 
     return(
-        <ul className={styles.footerLinks}>
-        {
-            socialMedias.map(socialMedia => (
-                <li key={socialMedia.id} className={styles.footerList}> 
+
+<li className={styles.footerList}> 
                     <a href={socialMedia.url}>
                         <img src={socialMedia.icon} alt={socialMedia.title}  className={styles.socialMediaImg}/>
                          {socialMedia.title}
                     </a>
                 </li>
-            ))
-        }
-        </ul>
+
+        // <ul className={styles.footerLinks}>
+        // {
+        //     socialMedias.map(socialMedia => (
+        //         <li key={socialMedia.id} className={styles.footerList}> 
+        //             <a href={socialMedia.url}>
+        //                 <img src={socialMedia.icon} alt={socialMedia.title}  className={styles.socialMediaImg}/>
+        //                  {socialMedia.title}
+        //             </a>
+        //         </li>
+        //     ))
+        // }
+        // </ul>
     )
 }
 
