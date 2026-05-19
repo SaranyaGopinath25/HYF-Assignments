@@ -35,7 +35,7 @@ export const Navbar = () => {
         <ul className={styles.navbarList}>
           
           {navbarItems.map(navItem => (
-            <NavItem key={navItem.id}  navbarItem = {navItem} currentPath={currentPath} />
+            <NavItem key={navItem.link}  navbarItem = {navItem} currentPath={currentPath} />
 
           ))}
 

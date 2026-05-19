@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import RoverPhoto from './RoverPhoto';
+import NASA_API_KEY from "../../../config.js";
 
 
 // Read "/app/nasa_collaboration/README.md" for more info about the API_KEY
 // You need a proper API_KEY for the requests to work
-const API_KEY = 'Pw3RA1Rt6OHal41JrW9ryiUm6Wnf8c7C2yIU0iJi';
+const API_KEY = NASA_API_KEY;
 
 const NASA_URLs = {
   // astronomyPicOfTheDay: `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`,
@@ -19,6 +20,18 @@ export const NasaCollaboration = () => {
 
   useEffect(() => {
     const fetchRoverPhotos = async () => {
+
+      try{
+        const roverPhotoResponse = await fetch(NASA_URLs.marsRoverPhoto);
+        if (!roverPhotoResponse.ok) {
+          throw new Error("API failed");
+        }
+        const roverPhotoData = await roverPhotoResponse.json();
+        setRoverPhoto(roverPhotoData);
+      }catch(error){
+        console.error(error);
+      }
+
       const roverPhotoResponse = await fetch(NASA_URLs.marsRoverPhoto).then(response => response.json());
       setRoverPhoto(roverPhotoResponse);
     };
@@ -29,9 +42,19 @@ export const NasaCollaboration = () => {
     // Fetch the extra data for NASA_URLs.astronomyPicOfTheDay and save it to the dailyImg state variable.
 
     const fetchAstronomyPicOfTheDay = async () => {
-      const astronomyPicOfTheDay = await fetch(NASA_URLs.astronomyPicOfTheDay)
-      .then(response => response.json());
-      setDailyImg(astronomyPicOfTheDay);
+      try {
+        const response = await fetch(NASA_URLs.astronomyPicOfTheDay);
+
+        if (!response.ok) {
+          throw new Error("API failed");
+        }
+
+        const astronomyPicOfTheDay = await response.json();
+        setDailyImg(astronomyPicOfTheDay);
+        console.log(astronomyPicOfTheDay);
+      } catch (error) {
+        console.error(error);
+      }
     }
 
     fetchAstronomyPicOfTheDay();
@@ -64,11 +87,21 @@ export const NasaCollaboration = () => {
                 {/* 3. roverName: will be in the rover object. */}
                 
                 {/* If you don't know how the data looks like you can log it out to the console and investigate in the browser's devtools. */}
-                {
-                  roverPhoto?.collection?.items.map(item => (
-                    <RoverPhoto key={item.data.nasa_id} imgUrl={item.links[1].href} date={item.data[0].date_created} alt={item.data[0].title}/>             
-                  ))
-                }
+                {roverPhoto.collection.items
+                .map((item) => ({
+                  id: item.data.nasa_id,
+                  imgUrl: item.links?.[1]?.href,
+                  date: item.data[0].date_created,
+                  alt: item.data[0].title,
+                }))
+                .map((photo) => (
+                  <RoverPhoto
+                    key={photo.id}
+                    imgUrl={photo.imgUrl}
+                    date={photo.date}
+                    alt={photo.alt}
+                  />
+                ))}
               </>
               ) : (
                 <p>Loading rover photos...</p>
