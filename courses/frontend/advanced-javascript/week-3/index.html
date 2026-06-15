@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <title>Advanced Javascript - Week 3</title>
+</head>
+<body>
+    <header>
+      <h1>Currency Converter</h1>
+    </header>
+
+    <div class="app">
+    <div class="container">
+        <h1></h1>
+        <p class="subtitle">Currency converter!</p>
+        <div class="card">
+            <form class="converter-form">
+                <fieldset>
+                    <legend>From</legend>
+                    <div class="input-box">
+                        <input id="fromCurrency" value="">
+                            <div>
+                                 <select name="fromCurrency" id="fromCurrencySelect">
+                                    </select>
+                            </div>
+                    </div>
+                </fieldset>
+                <div>
+                    <button id="converter" class="swap">
+                         <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                    </button>
+                   
+                </div>
+                <fieldset>
+                    <legend>To</legend>
+                    <div class="input-box">
+                        <input id="toCurrency" value="">
+                            <div>
+                                <select name="toCurrency" id="toCurrencySelect">
+                                </select>
+                            </div>
+                    </div>
+                </fieldset>
+            </form>
+            <div class="result">
+                <h3></h3>
+            </div>
+        </div>
+
+
+    </div>
+  </main>
+</div>
+
+    <script src="./index.js"></script>
+</body>
+</html>
