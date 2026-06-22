@@ -1,0 +1,52 @@
+
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-size: cover;
+            background-position: center;
+            color: white;
+            background-color: aliceblue;
+            /* background-color: rgb(237, 235, 231); */
+        }
+        h1,h3 {
+            text-align: center;
+            color: black;
+        }
+        p {
+            text-align: center;
+            color: black;
+        }
+        div {
+            margin-bottom: 20px;
+        }
+        button {
+            margin: 5px;
+            padding: 10px 15px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+        #results {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            color: black;
+        }
+        .movie-card {
+            background-color: white;
+            color: black;
+            border-radius: 10px;
+            padding: 15px;
+            width: 250px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .movie-card h3 {
+            margin-top: 0;
+        }
