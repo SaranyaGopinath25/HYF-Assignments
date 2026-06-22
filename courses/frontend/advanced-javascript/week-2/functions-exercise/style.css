@@ -1,0 +1,24 @@
+
+.divElement{
+    width: 300px;
+    height: 50px;
+    border: 1px solid black;
+    padding : 10px;
+    margin: 10px;
+    font-size: 15px;
+}
+
+.flexDiv{
+    display: flex;
+    flex-direction: row;
+    justify-self: start;
+}
+
+.parentDiv{
+    display: flex;
+    flex-direction: column;
+    
+}
+
+
+
